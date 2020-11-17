@@ -37,6 +37,7 @@ public class DABlackboard : Blackboard
         GenericMenu menu = new GenericMenu();
         menu.AddItem(new GUIContent("string"), false, () => CreateProperty(typeof(DABlackboardStringProperty)));
         menu.AddItem(new GUIContent("enum"), false, () => CreateProperty(typeof(DABlackboardEnumProperty)));
+        menu.AddItem(new GUIContent("GameObject"), false, () => CreateProperty(typeof(DABlackboardGameObjectProperty)));
         menu.ShowAsContext();
     }
 
@@ -49,18 +50,8 @@ public class DABlackboard : Blackboard
     public DABlackboardPropertyRow CreateProperty(System.Type type)
     {
         daGraphView.GraphObject.RegisterCompleteObjectUndo("Add Property");
-        DABlackboardPropertyField field = new DABlackboardPropertyField(this); ;
-        DABlackboardProperty property = null;
-
-        if (type == typeof(DABlackboardStringProperty))
-        {
-            property = new DABlackboardStringProperty(this);
-        }
-        else if (type == typeof(DABlackboardEnumProperty))
-        {
-            property = new DABlackboardEnumProperty(this);
-        }
-
+        DABlackboardPropertyField field = new DABlackboardPropertyField(this);
+        DABlackboardProperty property = (DABlackboardProperty)System.Activator.CreateInstance(type, this);
         DABlackboardPropertyRow row = new DABlackboardPropertyRow(field, property);
         PropertiesScrollView.Add(row);
         PropertyRows.Add(property.GetData().reference, row);

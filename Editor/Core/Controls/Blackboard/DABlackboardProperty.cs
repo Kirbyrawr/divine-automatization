@@ -52,6 +52,7 @@ public abstract class DABlackboardProperty<T> : DABlackboardProperty where T : D
         else
         {
             JsonSerializerSettings settings = new JsonSerializerSettings();
+            settings.Converters.Add(new DAGameObjectConverter());
             settings.Formatting = Formatting.None;
             return JsonConvert.SerializeObject(_data, settings);
         }
@@ -65,7 +66,7 @@ public abstract class DABlackboardProperty<T> : DABlackboardProperty where T : D
         }
         else
         {
-            _data = JsonConvert.DeserializeObject<T>(json);
+            _data = JsonConvert.DeserializeObject<T>(json, new DAGameObjectConverter());
             RefreshValues();
         }
     }

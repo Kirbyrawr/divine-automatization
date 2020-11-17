@@ -1,0 +1,62 @@
+﻿.node {
+  border-radius: 0px;
+  border-width: 0px;
+}
+
+#node-border {
+  margin: 0px;
+  border-width: 1px;
+  border-radius: 6px;
+  border-color: rgba(0, 0, 0, 0.5);
+}
+
+.node #divider.horizontal {
+  border-bottom-width: 0.5px;
+}
+
+.node #top {
+  border-bottom-width: 1px;
+  border-bottom-color: #232323;
+}
+
+.node #input {
+  border-radius: 0px;
+}
+
+.node #output {
+  border-radius: 0px;
+}
+
+.node #content {
+  background-color: rgba(58, 58, 58, 0.9);
+}
+
+.node #content TextInput {
+  min-width: 250px;
+}
+
+#selection-border {
+  margin: 0px;
+  padding: 0px;
+  border-width: 8px;
+  border-radius: 5px;
+}
+
+/* Controls */
+
+.DANodeField {
+  flex-direction: row;
+}
+
+.DANodeField #label {
+  flex-grow: 1;
+  flex-shrink: 0;
+  margin-right: 10px;
+  font-size: 12px;
+  -unity-text-align: middle-left;
+}
+
+.DANodeField EnumField {
+  flex-grow: 0;
+  width: 200px;
+}

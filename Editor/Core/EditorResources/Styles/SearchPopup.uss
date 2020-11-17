@@ -1,0 +1,20 @@
+﻿SearchPopup {
+  background-color: black;
+  width: 200px;
+}
+
+SearchPopup ToolbarSearchField {
+  width: auto;
+}
+
+SearchPopup ListView {
+  height: 200px;
+}
+
+.Entry {
+  background-color: black;
+}
+
+.Entry Button {
+  border-radius: 0;
+}

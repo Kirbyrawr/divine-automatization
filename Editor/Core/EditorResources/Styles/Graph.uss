@@ -1,0 +1,6 @@
+#grid {
+  --grid-background-color: #202020;
+  --line-color: #282828;
+  --thick-line-color: #1e1e1e;
+  --spacing: 0;
+}

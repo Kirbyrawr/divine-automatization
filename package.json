@@ -1,0 +1,15 @@
+{
+  "name": "com.kirbyrawr.divineautomatization",
+  "displayName": "Divine Automatization",
+  "version": "1.0.0",
+  "unity": "2019.4",
+  "description": "",
+  "keywords": [
+    "automatization",
+    "graphview",
+    "nodes",
+    "multipurpose",
+    "editor"
+  ],
+  "dependencies": {}
+}

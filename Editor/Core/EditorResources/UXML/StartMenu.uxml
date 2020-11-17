@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement style="padding-top: 30px; margin-top: 0; flex-direction: row; justify-content: center; margin-bottom: 0; padding-left: 30px; padding-right: 30px; padding-bottom: 30px; color: rgb(217, 217, 217); border-bottom-width: 2px; border-bottom-color: rgb(34, 34, 34); border-left-color: rgb(48, 48, 48); border-right-color: rgb(48, 48, 48); border-top-color: rgb(48, 48, 48);">
+        <Style src="/Assets/Divine Automatization/Editor/Core/EditorResources/Styles/Editor.uss" />
+        <ui:Label text="Divine Automatization" class="label-fa-regular" style="-unity-text-align: middle-center; font-size: 22px; flex-grow: 1; color: rgba(219, 219, 219, 255); padding-left: 0; padding-right: 0;" />
+    </ui:VisualElement>
+    <ui:VisualElement style="flex-grow: 1; justify-content: center; align-items: center; flex-direction: row; margin-bottom: 0; background-color: rgba(48, 48, 48, 255); padding-bottom: 25px;">
+        <Style src="/Assets/Divine Automatization/Editor/Core/EditorResources/Styles/Editor.uss" />
+        <ui:Button text=" New Job" name="new-job" class="button-fa-solid button-menu" style="width: 80px; height: 50px; -unity-font-style: normal;" />
+        <ui:Button text=" Load Job" name="load-job" class="button-fa button-fa-solid button-menu" style="width: 80px; height: 50px; -unity-font-style: normal;" />
+    </ui:VisualElement>
+</ui:UXML>

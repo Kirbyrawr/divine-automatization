@@ -32,8 +32,8 @@ public class DANodeEnumField : DANodeField
             DAEditor.Instance.graphView.Serialize();
         });
 
-        Button propertiesButton = new Button() { name = "button" };
-        propertiesButton.clicked += () => OpenPropertiesPopup(_variable);
+        Button propertiesButton = new Button() { name = "properties-button" };
+        propertiesButton.clicked += () => OpenPropertiesPopup(_variable, propertiesButton.worldBound.position);
         propertiesButton.text = "...";
         Add(propertiesButton);
     }

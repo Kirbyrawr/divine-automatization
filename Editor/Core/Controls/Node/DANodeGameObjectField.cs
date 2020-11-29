@@ -31,8 +31,8 @@ public class DANodeGameObjectField : DANodeField
             _variable.value = (GameObject)evt.newValue;
         });
 
-        Button propertiesButton = new Button() { name = "button" };
-        propertiesButton.clicked += () => propertiesButton.clicked += () => OpenPropertiesPopup(_variable);
+        Button propertiesButton = new Button() { name = "properties-button" };
+        propertiesButton.clicked += () => OpenPropertiesPopup(_variable, propertiesButton.worldBound.position);
         propertiesButton.text = "...";
         Add(propertiesButton);
     }

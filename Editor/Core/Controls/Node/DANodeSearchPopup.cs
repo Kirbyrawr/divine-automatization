@@ -7,42 +7,58 @@ using Kirbyrawr.DivineAutomatization;
 using System;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
+using UnityEditor.Searcher;
 
-public class DANodeSearchPopup : ScriptableObject, ISearchWindowProvider
+public class SearcherNodeEntry : SearcherItem
+{
+    public Type type;
+    public SearcherNodeEntry(string name, string help = "", List<SearcherItem> children = null) : base(name, help, children)
+    {
+    }
+}
+
+public class DANodeSearchPopup : ScriptableObject
 {
     private DAEditor _editor;
-    private Texture2D _icon;
 
     public void Setup(DAEditor editor)
     {
         _editor = editor;
-        // Transparent icon to trick search window into indenting items
-        _icon = new Texture2D(1, 1);
-        _icon.SetPixel(0, 0, new Color(0, 0, 0, 0));
-        _icon.Apply();
     }
 
-    public List<SearchTreeEntry> CreateSearchTree(SearchWindowContext context)
+    public Searcher LoadSearchWindow()
     {
-        List<SearchTreeEntry> tree = new List<SearchTreeEntry>();
-        tree.Add(new SearchTreeGroupEntry(new GUIContent("Create Node"), 0));
+        List<SearcherItem> root = new List<SearcherItem>();
 
         foreach (var item in DAUtils.GetAllNodesAvailable())
         {
             var name = ((TitleAttribute)item.GetCustomAttributes(typeof(TitleAttribute), false)[0]).Title;
-            var entry = new SearchTreeEntry(new GUIContent(name, _icon));
-            entry.userData = item;
-            entry.level = 1;
-            tree.Add(entry);
+            var entry = new SearcherNodeEntry(name);
+            entry.type = item;
+            root.Add(entry);
         }
 
-        return tree;
+        var nodeDatabase = SearcherDatabase.Create(root, string.Empty, false);
+
+        return new Searcher(nodeDatabase, new SearcherAdapter("Create Node"));
     }
 
-    public bool OnSelectEntry(SearchTreeEntry entry, SearchWindowContext context)
+    public bool OnSearcherSelectEntry(SearcherItem entry, Vector2 screenMousePosition)
     {
-        _editor.graphView.GraphObject.RegisterCompleteObjectUndo("Add " + entry.name);
-        _editor.graphView.CreateAndAddNode((Type)entry.userData, _editor.rootVisualElement.ChangeCoordinatesTo(_editor.rootVisualElement, context.screenMousePosition - _editor.position.position));
-        return true;
+        if (entry != null)
+        {
+            var windowRoot = _editor.rootVisualElement;
+            var windowMousePosition = windowRoot.ChangeCoordinatesTo(windowRoot.parent, screenMousePosition); //- m_EditorWindow.position.position);
+            var graphMousePosition = _editor.graphView.contentViewContainer.WorldToLocal(windowMousePosition);
+
+            var nodeEntry = (SearcherNodeEntry)entry;
+            _editor.graphView.GraphObject.RegisterCompleteObjectUndo("Add " + nodeEntry.Name);
+            _editor.graphView.CreateAndAddNode(nodeEntry.type, graphMousePosition);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

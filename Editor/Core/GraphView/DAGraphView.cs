@@ -5,6 +5,7 @@ using System.Linq;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
+using UnityEditor.Searcher;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -15,6 +16,8 @@ namespace Kirbyrawr.DivineAutomatization
     {
         public DAGraphObject GraphObject { get; set; }
         private DAEditor _editor;
+
+        private DANodeSearchPopup _nodeSearcher;
 
         public DAGraphView(DAEditor editor)
         {
@@ -32,6 +35,10 @@ namespace Kirbyrawr.DivineAutomatization
             this.AddManipulator(new RectangleSelector());
             this.AddManipulator(new FreehandSelector());
             this.AddManipulator(new SelectionDropper());
+            this.RegisterCallback<KeyDownEvent>(OnSpaceDown);
+
+            _nodeSearcher = ScriptableObject.CreateInstance<DANodeSearchPopup>();
+            _nodeSearcher.Setup(_editor);
 
             deleteSelection = OnDeleteSelection;
             nodeCreationRequest = OpenSearchWindow;
@@ -54,9 +61,29 @@ namespace Kirbyrawr.DivineAutomatization
             Serialize();
         }
 
+        private void OnSpaceDown(KeyDownEvent evt)
+        {
+            if (evt.keyCode == KeyCode.Space && !evt.shiftKey && !evt.altKey && !evt.ctrlKey && !evt.commandKey)
+            {
+                if (nodeCreationRequest == null)
+                    return;
+
+                Vector2 referencePosition;
+                referencePosition = evt.imguiEvent.mousePosition;
+                Vector2 screenPoint = _editor.position.position + referencePosition;
+
+                nodeCreationRequest(new NodeCreationContext() { screenMousePosition = screenPoint });
+            }
+        }
+
         private void OpenSearchWindow(NodeCreationContext c)
         {
-            SearchWindow.Open(new SearchWindowContext(c.screenMousePosition), _editor.searchNodePopup);
+            if (EditorWindow.focusedWindow == _editor)
+            {
+                SearcherWindow.Show(_editor, _nodeSearcher.LoadSearchWindow(),
+                    item => _nodeSearcher.OnSearcherSelectEntry(item, c.screenMousePosition - _editor.position.position),
+                    c.screenMousePosition - _editor.position.position, null);
+            }
         }
 
         public void AddNode(DANode node)

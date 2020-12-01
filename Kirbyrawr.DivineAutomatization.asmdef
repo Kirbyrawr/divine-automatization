@@ -1,7 +1,8 @@
 {
     "name": "Kirbyrawr.DivineAutomatization",
     "references": [
-        "GUID:478a2357cc57436488a56e564b08d223"
+        "GUID:478a2357cc57436488a56e564b08d223",
+        "GUID:4988cf9794f41d64c884876ab6574b89"
     ],
     "includePlatforms": [
         "Editor"

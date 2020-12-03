@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node>
+    <name>Load Prefab Contents</name>
+    <help>Loads a Prefab Asset at a given path into an isolated Scene.</help>
+</node>

@@ -8,6 +8,8 @@ using System;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.Searcher;
+using System.IO;
+using System.Xml;
 
 public class SearcherNodeEntry : SearcherItem
 {
@@ -32,8 +34,19 @@ public class DANodeSearchPopup : ScriptableObject
 
         foreach (var item in DAUtils.GetAllNodesAvailable())
         {
-            var name = ((TitleAttribute)item.GetCustomAttributes(typeof(TitleAttribute), false)[0]).Title;
-            var entry = new SearcherNodeEntry(name);
+            var guid = AssetDatabase.FindAssets($"t:Script {item.Name}", new string[] { "Packages/com.kirbyrawr.divineautomatization" })[0];
+            var path = AssetDatabase.GUIDToAssetPath(guid);
+            var folder = Path.Combine(new DirectoryInfo(path).Parent.FullName, "Info.xml");
+
+            // If the node has value 
+            XmlDocument doc = new XmlDocument();
+            doc.Load(folder);
+            XmlNode nameNode = doc.DocumentElement.SelectSingleNode("/node/name");
+            XmlNode helpNode = doc.DocumentElement.SelectSingleNode("/node/help");
+
+            var name = nameNode.InnerText;
+            var help = helpNode.InnerText;
+            var entry = new SearcherNodeEntry(name, help);
             entry.type = item;
             root.Add(entry);
         }

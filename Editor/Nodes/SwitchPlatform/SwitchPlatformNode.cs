@@ -10,15 +10,19 @@ namespace Kirbyrawr.DivineAutomatization
     {
         protected override string _nodeTitle => "Switch Platform";
 
-        protected override void DrawContent()
+        protected override VisualElement InspectorContent()
         {
+            VisualElement root = new VisualElement();
+
             //Target
             var buildTargetGroupField = new DANodeEnumField("Build Target Group", _task.buildTargetGroup);
-            _content.Add(buildTargetGroupField);
+            root.Add(buildTargetGroupField);
 
             //Name
             var buildTarget = new DANodeEnumField("Build Target", _task.buildTarget);
-            _content.Add(buildTarget);
+            root.Add(buildTarget);
+
+            return root;
         }
     }
 }

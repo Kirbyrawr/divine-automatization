@@ -8,11 +8,15 @@ namespace Kirbyrawr.DivineAutomatization
     {
         protected override string _nodeTitle => "Load Prefab Contents";
 
-        protected override void DrawContent()
+        protected override VisualElement InspectorContent()
         {
+            VisualElement root = new VisualElement();
+
             //Prefab
             var prefabField = new DANodeGameObjectField("Prefab", _task.prefab, false);
-            _content.Add(prefabField);
+            root.Add(prefabField);
+
+            return root;
         }
     }
 }

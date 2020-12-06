@@ -13,8 +13,10 @@ namespace Kirbyrawr.DivineAutomatization
     {
         public static DAEditor Instance { get; private set; }
 
+        public VisualElement graphLayout;
         public DAGraphView graphView;
         public DABlackboard blackboard;
+        public DAInspector inspector;
         public DANodeSearchPopup searchNodePopup;
         public DAEnumSearchPopup searchEnumPopup;
         public DAPropertiesSearchPopup searchPropertiesPopup;
@@ -35,9 +37,11 @@ namespace Kirbyrawr.DivineAutomatization
         {
             SetInstance();
             LoadStyles();
+            CreateToolbar();
+            CreateGraphLayout();
             CreateGraphView();
             CreateBlackboard();
-            CreateToolbar();
+            CreateInspector();
             CreateSearchNodePopup();
             CreateSearchEnumPopup();
             CreateSearchPropertyPopup();
@@ -82,6 +86,35 @@ namespace Kirbyrawr.DivineAutomatization
             Styles.Add("Node", AssetDatabase.LoadAssetAtPath<StyleSheet>($"{stylesPath}/Node.uss"));
         }
 
+        private void CreateToolbar()
+        {
+            Toolbar toolbar = new Toolbar();
+
+            ToolbarButton loadButton = new ToolbarButton(OpenLoadDialog);
+            loadButton.text = "Load";
+            toolbar.Add(loadButton);
+
+            ToolbarButton saveButton = new ToolbarButton(() => Save(_graphObjectPath));
+            saveButton.text = "Save";
+            toolbar.Add(saveButton);
+
+            ToolbarButton saveAsButton = new ToolbarButton(OpenSaveAsDialog);
+            saveAsButton.text = "Save As..";
+            toolbar.Add(saveAsButton);
+
+            rootVisualElement.Add(toolbar);
+        }
+
+        private void CreateGraphLayout()
+        {
+            graphLayout = new VisualElement();
+            rootVisualElement.Add(graphLayout);
+            graphLayout.style.width = new Length(100, LengthUnit.Percent);
+            graphLayout.style.height = new Length(100, LengthUnit.Percent);
+            graphLayout.style.flexDirection = FlexDirection.Row;
+            graphLayout.style.position = Position.Relative;
+        }
+
         private void CreateGraphView()
         {
             graphView = new DAGraphView(this);
@@ -104,23 +137,9 @@ namespace Kirbyrawr.DivineAutomatization
             graphView.Add(blackboard);
         }
 
-        private void CreateToolbar()
+        private void CreateInspector()
         {
-            Toolbar toolbar = new Toolbar();
-
-            ToolbarButton loadButton = new ToolbarButton(OpenLoadDialog);
-            loadButton.text = "Load";
-            toolbar.Add(loadButton);
-
-            ToolbarButton saveButton = new ToolbarButton(() => Save(_graphObjectPath));
-            saveButton.text = "Save";
-            toolbar.Add(saveButton);
-
-            ToolbarButton saveAsButton = new ToolbarButton(OpenSaveAsDialog);
-            saveAsButton.text = "Save As..";
-            toolbar.Add(saveAsButton);
-
-            rootVisualElement.Insert(0, toolbar);
+            inspector = new DAInspector(this);
         }
 
         private void CreateSearchNodePopup()

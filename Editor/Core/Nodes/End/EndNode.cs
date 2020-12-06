@@ -9,12 +9,11 @@ namespace Kirbyrawr.DivineAutomatization
     {
         protected override string _nodeTitle => "End";
 
-        public override void Setup(DAGraphView graphView, DAEdgeConnectorListener edgeConnectorListener)
+        public override void Setup(DAEditor editor, DAEdgeConnectorListener edgeConnectorListener)
         {
-            base.Setup(graphView, edgeConnectorListener);
+            base.Setup(editor, edgeConnectorListener);
             m_CollapseButton.style.display = DisplayStyle.None;
             capabilities = Capabilities.Movable | Capabilities.Selectable;
-            _content.style.SetPadding(0, 0, 0, 0);
         }
 
         protected override void DrawPorts(DAEdgeConnectorListener edgeConnectorListener)
@@ -26,10 +25,6 @@ namespace Kirbyrawr.DivineAutomatization
 
             RefreshExpandedState();
             RefreshPorts();
-        }
-
-        protected override void DrawContent()
-        {
         }
     }
 }

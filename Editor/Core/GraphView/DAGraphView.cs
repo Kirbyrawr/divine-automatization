@@ -15,7 +15,7 @@ namespace Kirbyrawr.DivineAutomatization
     public class DAGraphView : GraphView
     {
         public DAGraphObject GraphObject { get; set; }
-        private DAEditor _editor;
+        public DAEditor Editor { get; private set; }
 
         private DANodeSearchPopup _nodeSearcher;
 
@@ -26,8 +26,8 @@ namespace Kirbyrawr.DivineAutomatization
 
         private void Setup(DAEditor editor)
         {
-            _editor = editor;
-            _editor.rootVisualElement.Add(this);
+            Editor = editor;
+            Editor.graphLayout.Add(this);
             SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
 
             this.AddManipulator(new ContentDragger());
@@ -38,7 +38,7 @@ namespace Kirbyrawr.DivineAutomatization
             this.RegisterCallback<KeyDownEvent>(OnSpaceDown);
 
             _nodeSearcher = ScriptableObject.CreateInstance<DANodeSearchPopup>();
-            _nodeSearcher.Setup(_editor);
+            _nodeSearcher.Setup(Editor);
 
             deleteSelection = OnDeleteSelection;
             nodeCreationRequest = OpenSearchWindow;
@@ -70,7 +70,7 @@ namespace Kirbyrawr.DivineAutomatization
 
                 Vector2 referencePosition;
                 referencePosition = evt.imguiEvent.mousePosition;
-                Vector2 screenPoint = _editor.position.position + referencePosition;
+                Vector2 screenPoint = Editor.position.position + referencePosition;
 
                 nodeCreationRequest(new NodeCreationContext() { screenMousePosition = screenPoint });
             }
@@ -78,25 +78,25 @@ namespace Kirbyrawr.DivineAutomatization
 
         private void OpenSearchWindow(NodeCreationContext c)
         {
-            if (EditorWindow.focusedWindow == _editor)
+            if (EditorWindow.focusedWindow == Editor)
             {
-                SearcherWindow.Show(_editor, _nodeSearcher.LoadSearchWindow(),
-                    item => _nodeSearcher.OnSearcherSelectEntry(item, c.screenMousePosition - _editor.position.position),
-                    c.screenMousePosition - _editor.position.position, null);
+                SearcherWindow.Show(Editor, _nodeSearcher.LoadSearchWindow(),
+                    item => _nodeSearcher.OnSearcherSelectEntry(item, c.screenMousePosition - Editor.position.position),
+                    c.screenMousePosition - Editor.position.position, null);
             }
         }
 
         public void AddNode(DANode node)
         {
-            node.styleSheets.Add(_editor.Styles["Node"]);
+            node.styleSheets.Add(Editor.Styles["Node"]);
             AddElement(node);
         }
 
         public DANode CreateAndAddNode(Type type, Vector2 position)
         {
             DANode node = (DANode)Activator.CreateInstance(type);
-            node.styleSheets.Add(_editor.Styles["Node"]);
-            node.Setup(this, _editor.edgeConnectorListener);
+            node.styleSheets.Add(Editor.Styles["Node"]);
+            node.Setup(Editor, Editor.edgeConnectorListener);
             node.SetPosition(new Rect(position.x, position.y, 0, 0));
             AddNode(node);
             return node;
@@ -122,7 +122,7 @@ namespace Kirbyrawr.DivineAutomatization
 
         public override Blackboard GetBlackboard()
         {
-            return _editor.blackboard;
+            return Editor.blackboard;
         }
 
         public void Serialize()

@@ -176,7 +176,7 @@ namespace Kirbyrawr.DivineAutomatization
                 node.SetPosition(nodeData.position);
                 node.expanded = nodeData.expanded;
                 node.Deserialize(nodeData.dataJson);
-                node.Setup(graphView, DAEditor.Instance.edgeConnectorListener);
+                node.Setup(graphView.Editor, DAEditor.Instance.edgeConnectorListener);
 
                 //Ports
                 for (int i = 0; i < node.inputContainer.Query<Port>().ToList().Count; i++)

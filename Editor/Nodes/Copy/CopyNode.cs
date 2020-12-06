@@ -8,15 +8,19 @@ namespace Kirbyrawr.DivineAutomatization
     {
         protected override string _nodeTitle => "Copy";
 
-        protected override void DrawContent()
+        protected override VisualElement InspectorContent()
         {
+            VisualElement root = new VisualElement();
+
             //Target
             var targetPathField = new DANodeTextField("Target Path", _task.targetPath);
-            _content.Add(targetPathField);
+            root.Add(targetPathField);
 
             //Name
             var destinationPathField = new DANodeTextField("Destination Path", _task.destinationPath);
-            _content.Add(destinationPathField);
+            root.Add(destinationPathField);
+
+            return root;
         }
     }
 }

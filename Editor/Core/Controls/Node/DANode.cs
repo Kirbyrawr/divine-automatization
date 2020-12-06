@@ -11,9 +11,9 @@ namespace Kirbyrawr.DivineAutomatization
 {
     public abstract class DANode : Node
     {
-        protected DAGraphView _graphView;
+        protected DAEditor _editor;
 
-        public abstract void Setup(DAGraphView graphView, DAEdgeConnectorListener edgeConnectorListener);
+        public abstract void Setup(DAEditor editor, DAEdgeConnectorListener edgeConnectorListener);
 
         public override Rect GetPosition()
         {
@@ -49,11 +49,10 @@ namespace Kirbyrawr.DivineAutomatization
     {
         protected T _task;
         protected abstract string _nodeTitle { get; }
-        protected VisualElement _content;
 
-        public override void Setup(DAGraphView graphView, DAEdgeConnectorListener edgeConnectorListener)
+        public override void Setup(DAEditor editor, DAEdgeConnectorListener edgeConnectorListener)
         {
-            _graphView = graphView;
+            _editor = editor;
 
             if (_task == null)
             {
@@ -62,19 +61,8 @@ namespace Kirbyrawr.DivineAutomatization
 
             title = _nodeTitle;
 
-            DrawContentContainer();
+            RegisterCallback<MouseDownEvent>((evt) => OnClick());
             DrawPorts(edgeConnectorListener);
-            DrawContent();
-        }
-
-        protected void DrawContentContainer()
-        {
-            var contents = this.Q<VisualElement>("contents");
-
-            _content = new VisualElement();
-            _content.name = "content";
-            _content.style.SetPadding(12, 12, 12, 12);
-            contents.Add(_content);
         }
 
         protected virtual void DrawPorts(DAEdgeConnectorListener edgeConnectorListener)
@@ -93,7 +81,16 @@ namespace Kirbyrawr.DivineAutomatization
             RefreshPorts();
         }
 
-        protected abstract void DrawContent();
+        private void OnClick()
+        {
+            _editor.inspector.SetContent(InspectorContent());
+        }
+
+        protected virtual VisualElement InspectorContent()
+        {
+            VisualElement root = new VisualElement();
+            return root;
+        }
 
         public override string Serialize()
         {

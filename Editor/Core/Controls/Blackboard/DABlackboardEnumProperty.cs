@@ -40,7 +40,7 @@ public class DABlackboardEnumProperty : DABlackboardProperty<DAEnum>
         Button selectTypeButton = new Button();
         selectTypeButton.style.flexShrink = 0;
         selectTypeButton.text = "▼";
-        selectTypeButton.clickable.clicked += ShowEnumPopup;
+        selectTypeButton.clickable.clicked += () => ShowEnumPopup(selectTypeButton.worldBound.position);
         enumTypeContainer.Add(selectTypeButton);
 
         Add(enumTypeContainer);
@@ -48,13 +48,13 @@ public class DABlackboardEnumProperty : DABlackboardProperty<DAEnum>
         RefreshValues();
     }
 
-    private void ShowEnumPopup()
+    private void ShowEnumPopup(Vector2 position)
     {
-        var position = Event.current.mousePosition;
-        position.y += 345;
+        position.x += 200;
+        position.y += 38;
         DAEditor.Instance.searchEnumPopup.enumEditing = _data;
         DAEditor.Instance.searchEnumPopup.OnSelectEntryEvent = OnSelectEnumType;
-        SearchWindow.Open(new SearchWindowContext(GUIUtility.GUIToScreenPoint(position), 400), DAEditor.Instance.searchEnumPopup);
+        SearchWindow.Open(new SearchWindowContext(GUIUtility.GUIToScreenPoint(position) * UnityEditor.EditorGUIUtility.pixelsPerPoint, 400), DAEditor.Instance.searchEnumPopup);
     }
 
     private void OnSelectEnumType()

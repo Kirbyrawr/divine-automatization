@@ -10,10 +10,14 @@ namespace Kirbyrawr.DivineAutomatization
     {
         protected override string _nodeTitle => "Open URL";
 
-        protected override void DrawContent()
+        protected override VisualElement InspectorContent()
         {
+            VisualElement root = new VisualElement();
+
             DANodeTextField urlField = new DANodeTextField("URL", _task.url);
-            _content.Add(urlField);
+            root.Add(urlField);
+
+            return root;
         }
     }
 }

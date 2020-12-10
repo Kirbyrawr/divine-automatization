@@ -11,6 +11,7 @@ namespace Kirbyrawr.DivineAutomatization
 {
     public abstract class DANode : Node
     {
+        protected abstract string _nodeTitle { get; }
         protected DAEditor _editor;
 
         public abstract void Setup(DAEditor editor, DAEdgeConnectorListener edgeConnectorListener);
@@ -24,10 +25,23 @@ namespace Kirbyrawr.DivineAutomatization
             return base.layout;
         }
 
+        protected void OnClick()
+        {
+            _editor.inspector.SetContent(this);
+        }
+
+        public virtual VisualElement InspectorContent()
+        {
+            VisualElement root = new VisualElement();
+            return root;
+        }
+
         public abstract string Serialize();
         public abstract void Deserialize(string json);
         public abstract DATask GetTask();
         public virtual List<Node> GetNextNodes()
+
+
         {
             List<Node> nodes = new List<Node>();
 
@@ -48,7 +62,6 @@ namespace Kirbyrawr.DivineAutomatization
     public abstract class DANode<T> : DANode where T : DATask
     {
         protected T _task;
-        protected abstract string _nodeTitle { get; }
 
         public override void Setup(DAEditor editor, DAEdgeConnectorListener edgeConnectorListener)
         {
@@ -79,17 +92,6 @@ namespace Kirbyrawr.DivineAutomatization
 
             RefreshExpandedState();
             RefreshPorts();
-        }
-
-        private void OnClick()
-        {
-            _editor.inspector.SetContent(InspectorContent());
-        }
-
-        protected virtual VisualElement InspectorContent()
-        {
-            VisualElement root = new VisualElement();
-            return root;
         }
 
         public override string Serialize()

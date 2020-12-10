@@ -8,16 +8,16 @@ namespace Kirbyrawr.DivineAutomatization
     {
         protected override string _nodeTitle => "Rename";
 
-        protected override VisualElement InspectorContent()
+        public override VisualElement InspectorContent()
         {
             VisualElement root = new VisualElement();
 
             //Target
-            var targetPathField = new DANodeTextField("Target Path", _task.targetPath);
+            var targetPathField = new DAInspectorTextField("Target Path", _task.targetPath);
             root.Add(targetPathField);
 
             //Name
-            var newNameField = new DANodeTextField("New Name", _task.newName);
+            var newNameField = new DAInspectorTextField("New Name", _task.newName);
             root.Add(newNameField);
 
             return root;

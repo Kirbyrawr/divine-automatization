@@ -11,7 +11,7 @@ using UnityEditor.Experimental.GraphView;
 public class DAPropertiesSearchPopup : ScriptableObject, ISearchWindowProvider
 {
     public Type acceptedType;
-    public DANodeField field;
+    public DAInspectorField field;
     private DAEditor _editor;
     private Texture2D _icon;
 

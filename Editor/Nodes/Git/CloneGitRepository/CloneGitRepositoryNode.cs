@@ -10,14 +10,14 @@ namespace Kirbyrawr.DivineAutomatization
     {
         protected override string _nodeTitle => "Clone Git Repository";
 
-        protected override VisualElement InspectorContent()
+        public override VisualElement InspectorContent()
         {
             VisualElement root = new VisualElement();
 
-            DANodeTextField sshURLField = new DANodeTextField("URL (SSH)", _task.sshURL);
+            DAInspectorTextField sshURLField = new DAInspectorTextField("URL (SSH)", _task.sshURL);
             root.Add(sshURLField);
 
-            DANodeTextField destinationPath = new DANodeTextField("Destination Path", _task.destinationPath);
+            DAInspectorTextField destinationPath = new DAInspectorTextField("Destination Path", _task.destinationPath);
             root.Add(destinationPath);
 
             return root;

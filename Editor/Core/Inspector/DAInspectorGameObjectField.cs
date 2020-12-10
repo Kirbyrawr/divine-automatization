@@ -7,20 +7,20 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class DANodeGameObjectField : DANodeField
+public class DAInspectorGameObjectField : DAInspectorField
 {
     private DAGameObject _variable;
 
-    public DANodeGameObjectField(string title, DAGameObject variable, bool allowSceneObjects)
+    public DAInspectorGameObjectField(string title, DAGameObject variable)
     {
-        this.AddToClassList("DANodeField");
+        AddToClassList("inspector-field");
 
         _variable = variable;
 
-        Label label = new Label(title) { name = "label" };
-        Add(label);
+        Add(PropertiesButton());
 
-        ObjectField input = new ObjectField() { name = "input", objectType = typeof(GameObject), allowSceneObjects = false };
+        ObjectField input = new ObjectField() { label = title, name = "input", objectType = typeof(GameObject), allowSceneObjects = false };
+        input.style.flexShrink = 1;
         Add(input);
 
         RefreshField();
@@ -30,11 +30,6 @@ public class DANodeGameObjectField : DANodeField
             DAEditor.Instance.graphView.GraphObject.RegisterCompleteObjectUndo(title);
             _variable.value = (GameObject)evt.newValue;
         });
-
-        Button propertiesButton = new Button() { name = "properties-button" };
-        propertiesButton.clicked += () => OpenPropertiesPopup(_variable, propertiesButton.worldBound.position);
-        propertiesButton.text = "...";
-        Add(propertiesButton);
     }
 
     public override void SetReference(string reference)
@@ -60,5 +55,10 @@ public class DANodeGameObjectField : DANodeField
             //input.SetValueWithoutNotify(_variable.reference);
             input.SetEnabled(false);
         }
+    }
+
+    protected override DAPropertyData GetVariable()
+    {
+        return _variable;
     }
 }

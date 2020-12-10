@@ -1,0 +1,26 @@
+﻿.inspector {
+  padding: 10px;
+}
+
+.header {
+  margin-left: 1px;
+  margin-bottom: 5px;
+}
+
+#title {
+  font-size: 15px;
+}
+
+#properties-button {
+  width: 20px;
+  height: 18px;
+  -unity-font: url("../Fonts/FA-5-Free-Solid.otf");
+}
+
+.inspector-field,
+TextField,
+EnumField {
+  flex-direction: row;
+  flex-shrink: 0;
+  flex-grow: 1;
+}

@@ -5,37 +5,29 @@ using Kirbyrawr.DivineAutomatization;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEditor.UIElements;
 
-public class DANodeEnumField : DANodeField
+public class DAInspectorTextField : DAInspectorField
 {
-    private DAEnum _variable;
+    private DAString _variable;
 
-    public DANodeEnumField(string title, DAEnum variable)
+    public DAInspectorTextField(string title, DAString variable)
     {
-        this.AddToClassList("DANodeField");
-
         _variable = variable;
 
-        Label label = new Label(title) { name = "label" };
-        Add(label);
+        AddToClassList("inspector-field");
 
-        EnumField input = new EnumField(variable.value) { name = "input" };
+        Add(PropertiesButton());
+        TextField input = new TextField() { label = title, name = "input" };
+        input.isDelayed = true;
         Add(input);
 
         RefreshField();
 
-        input.RegisterValueChangedCallback<Enum>((evt) =>
+        input.RegisterValueChangedCallback((evt) =>
         {
             DAEditor.Instance.graphView.GraphObject.RegisterCompleteObjectUndo(title);
             _variable.value = evt.newValue;
-            DAEditor.Instance.graphView.Serialize();
         });
-
-        Button propertiesButton = new Button() { name = "properties-button" };
-        propertiesButton.clicked += () => OpenPropertiesPopup(_variable, propertiesButton.worldBound.position);
-        propertiesButton.text = "...";
-        Add(propertiesButton);
     }
 
     public override void SetReference(string reference)
@@ -49,7 +41,7 @@ public class DANodeEnumField : DANodeField
 
     private void RefreshField()
     {
-        var input = this.Q<EnumField>("input");
+        var input = this.Q<TextField>("input");
 
         if (string.IsNullOrEmpty(_variable.reference))
         {
@@ -58,8 +50,13 @@ public class DANodeEnumField : DANodeField
         }
         else
         {
-            //input.SetValueWithoutNotify(_variable.reference);
+            input.SetValueWithoutNotify(_variable.reference);
             input.SetEnabled(false);
         }
+    }
+
+    protected override DAPropertyData GetVariable()
+    {
+        return _variable;
     }
 }

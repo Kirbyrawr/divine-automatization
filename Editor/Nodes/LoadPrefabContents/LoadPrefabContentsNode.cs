@@ -8,12 +8,12 @@ namespace Kirbyrawr.DivineAutomatization
     {
         protected override string _nodeTitle => "Load Prefab Contents";
 
-        protected override VisualElement InspectorContent()
+        public override VisualElement InspectorContent()
         {
             VisualElement root = new VisualElement();
 
             //Prefab
-            var prefabField = new DANodeGameObjectField("Prefab", _task.prefab, false);
+            var prefabField = new DAInspectorGameObjectField("Prefab", _task.prefab);
             root.Add(prefabField);
 
             return root;

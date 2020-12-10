@@ -8,12 +8,12 @@ namespace Kirbyrawr.DivineAutomatization
     {
         protected override string _nodeTitle => "Delete";
 
-        protected override VisualElement InspectorContent()
+        public override VisualElement InspectorContent()
         {
             VisualElement root = new VisualElement();
 
             //Target
-            var targetPathField = new DANodeTextField("Target Path", _task.targetPath);
+            var targetPathField = new DAInspectorTextField("Target Path", _task.targetPath);
             root.Add(targetPathField);
 
             return root;

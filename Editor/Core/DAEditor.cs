@@ -22,6 +22,7 @@ namespace Kirbyrawr.DivineAutomatization
         public DAPropertiesSearchPopup searchPropertiesPopup;
         public DAEdgeConnectorListener edgeConnectorListener = new DAEdgeConnectorListener();
         public Dictionary<string, StyleSheet> Styles { get; private set; }
+        public Dictionary<string, Font> Fonts { get; private set; }
 
         private DAGraphObject _currentGraphObject;
         private string _graphObjectPath;
@@ -84,6 +85,7 @@ namespace Kirbyrawr.DivineAutomatization
             Styles = new Dictionary<string, StyleSheet>();
             Styles.Add("Graph", AssetDatabase.LoadAssetAtPath<StyleSheet>($"{stylesPath}/Graph.uss"));
             Styles.Add("Node", AssetDatabase.LoadAssetAtPath<StyleSheet>($"{stylesPath}/Node.uss"));
+            Styles.Add("Inspector", AssetDatabase.LoadAssetAtPath<StyleSheet>($"{stylesPath}/Inspector.uss"));
         }
 
         private void CreateToolbar()

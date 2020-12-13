@@ -36,9 +36,7 @@ namespace Kirbyrawr.DivineAutomatization
 
         private void RunJob()
         {
-            _graphObject.Run(new Dictionary<string, object>() {
-                    {"String_262AXUUG", "www.stellar.org"}
-                });
+            _graphObject.Run(new Dictionary<string, object>());
         }
 
         private void EditJob()

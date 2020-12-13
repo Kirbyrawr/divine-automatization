@@ -1,13 +1,9 @@
-﻿.inspector {
-  padding: 10px;
+﻿.header {
+  padding: 7px 10px 7px 10px;
+  flex-shrink: 0;
 }
 
-.header {
-  margin-left: 1px;
-  margin-bottom: 5px;
-}
-
-#title {
+.node-title {
   font-size: 15px;
 }
 
@@ -17,10 +13,48 @@
   -unity-font: url("../Fonts/FA-5-Free-Solid.otf");
 }
 
+.inspector-section-header {
+  background-color: #3e3e3e;
+  border-left-width: 0px;
+  border-right-width: 0px;
+  border-top-color: #1a1a1a;
+  border-bottom-color: #303030;
+  padding-left: 10px;
+  justify-content: center;
+  height: 22.5px;
+  -unity-font-style: bold;
+}
+
+.inspector-section-content {
+  border-bottom-color: #1a1a1a;
+  border-bottom-width: 1px;
+  padding: 5px;
+}
+
 .inspector-field,
 TextField,
 EnumField {
   flex-direction: row;
   flex-shrink: 0;
   flex-grow: 1;
+}
+
+.inspector-entry-box {
+  padding: 10px;
+  margin-bottom: 5px;
+}
+
+.inspector-entry-header {
+  margin-bottom: 5px;
+  flex-direction: row;
+}
+
+.inspector-entry-header-title {
+  -unity-font-style: bold;
+  flex-grow: 1;
+}
+
+.inspector-entry-header-buttons {
+  flex-direction: row;
+  -unity-font: url("../Fonts/FA-5-Free-Solid.otf");
 }

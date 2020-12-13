@@ -124,11 +124,11 @@ namespace Kirbyrawr.DivineAutomatization
             EventCallback<GeometryChangedEvent> callback = null;
             callback = ((evt) =>
             {
-                graphView.UnregisterCallback<GeometryChangedEvent>(callback);
+                graphView.UnregisterCallback(callback);
                 graphView.FrameAll();
             });
 
-            graphView.RegisterCallback<GeometryChangedEvent>(callback);
+            graphView.RegisterCallback(callback);
 
             graphView.styleSheets.Add(Styles["Graph"]);
         }
@@ -208,6 +208,11 @@ namespace Kirbyrawr.DivineAutomatization
             graphView.GraphObject.Setup(graphView);
             graphView.Clean();
             graphView.Deserialize();
+        }
+
+        public void UndoRedoPerformed()
+        {
+            inspector.UndoRedoPerformed();
         }
     }
 }

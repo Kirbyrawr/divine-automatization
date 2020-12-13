@@ -7,6 +7,14 @@ namespace Kirbyrawr.DivineAutomatization
     [CreateAssetMenu]
     public class DAGraphObject : ScriptableObject, ISerializationCallbackReceiver
     {
+        [System.Serializable]
+        public class SessionData
+        {
+            public string selectedNode;
+        }
+
+        public SessionData sessionData;
+
         [SerializeField]
         private DASerializer _serializer = new DASerializer();
         private DAGraphView _graphView;
@@ -25,6 +33,7 @@ namespace Kirbyrawr.DivineAutomatization
         {
             _graphView = graphView;
             Undo.undoRedoPerformed += UndoRedoPerformed;
+            sessionData = new SessionData();
         }
 
         private void OnDestroy()
@@ -53,6 +62,7 @@ namespace Kirbyrawr.DivineAutomatization
         {
             _graphView.Clean();
             Deserialize();
+            _graphView.Editor.UndoRedoPerformed();
         }
 
         public void Run(Dictionary<string, object> properties = null)

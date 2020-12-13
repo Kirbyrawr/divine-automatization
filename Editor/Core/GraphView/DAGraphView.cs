@@ -17,6 +17,7 @@ namespace Kirbyrawr.DivineAutomatization
         public DAGraphObject GraphObject { get; set; }
         public DAEditor Editor { get; private set; }
 
+        public DANode nodeSelected;
         private DANodeSearchPopup _nodeSearcher;
 
         public DAGraphView(DAEditor editor)
@@ -123,6 +124,11 @@ namespace Kirbyrawr.DivineAutomatization
         public override Blackboard GetBlackboard()
         {
             return Editor.blackboard;
+        }
+
+        public DAInspector GetInspector()
+        {
+            return Editor.inspector;
         }
 
         public void Serialize()

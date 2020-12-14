@@ -5,7 +5,6 @@ using UnityEngine.UIElements;
 
 namespace Kirbyrawr.DivineAutomatization
 {
-    [Title("Open URL")]
     public class OpenURLNode : DANode<OpenURLTask>
     {
         protected override string _nodeTitle => "Open URL";
@@ -13,9 +12,18 @@ namespace Kirbyrawr.DivineAutomatization
         public override VisualElement InspectorContent()
         {
             VisualElement root = new VisualElement();
+            var entrySection = new DAInspectorSection("Data");
+            root.Add(entrySection);
 
-            DAInspectorTextField urlField = new DAInspectorTextField("URL", _task.url);
-            root.Add(urlField);
+            for (int i = 0; i < _task.urls.Count; i++)
+            {
+                var url = _task.urls[i];
+
+                var element = new DAInspectorArrayElement<DAString>(i, _task.urls);
+                DAInspectorTextField urlField = new DAInspectorTextField("URL", url);
+                element.AddToElement(urlField);
+                entrySection.AddToSection(element);
+            }
 
             return root;
         }

@@ -16,7 +16,7 @@ namespace Kirbyrawr.DivineAutomatization
             public DAString destinationPath = new DAString();
         }
 
-        public List<CopyData> data = new List<CopyData>();
+        public List<CopyData> data = new List<CopyData>() { new CopyData() };
 
         public override void Run(Dictionary<string, object> properties)
         {

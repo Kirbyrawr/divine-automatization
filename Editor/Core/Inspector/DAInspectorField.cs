@@ -14,7 +14,8 @@ public abstract class DAInspectorField : VisualElement
 
     protected virtual Button PropertiesButton()
     {
-        Button propertiesButton = new Button() { name = "properties-button" };
+        Button propertiesButton = new Button();
+        propertiesButton.AddToClassList("inspector-field-properties-button");
         propertiesButton.clicked += () => OpenPropertiesPopup(GetVariable(), propertiesButton.worldBound.position);
         propertiesButton.text = "";
         return propertiesButton;

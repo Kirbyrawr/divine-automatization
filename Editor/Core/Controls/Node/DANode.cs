@@ -117,7 +117,10 @@ namespace Kirbyrawr.DivineAutomatization
             }
             else
             {
-                _task = JsonConvert.DeserializeObject<T>(json, new DAGameObjectConverter());
+                JsonSerializerSettings settings = new JsonSerializerSettings();
+                settings.Converters.Add(new DAGameObjectConverter());
+                settings.ObjectCreationHandling = ObjectCreationHandling.Replace;
+                _task = JsonConvert.DeserializeObject<T>(json, settings);
             }
         }
 

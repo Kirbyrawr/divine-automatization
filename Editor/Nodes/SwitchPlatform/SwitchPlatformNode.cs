@@ -14,13 +14,16 @@ namespace Kirbyrawr.DivineAutomatization
         {
             VisualElement root = new VisualElement();
 
+            var entrySection = new DAInspectorSection("Data");
+            root.Add(entrySection);
+
             //Target
             var buildTargetGroupField = new DAInspectorEnumField("Build Target Group", _task.buildTargetGroup);
-            root.Add(buildTargetGroupField);
+            entrySection.AddToSection(buildTargetGroupField);
 
             //Name
             var buildTarget = new DAInspectorEnumField("Build Target", _task.buildTarget);
-            root.Add(buildTarget);
+            entrySection.AddToSection(buildTarget);
 
             return root;
         }

@@ -7,12 +7,6 @@
   font-size: 15px;
 }
 
-#properties-button {
-  width: 20px;
-  height: 18px;
-  -unity-font: url("../Fonts/FA-5-Free-Solid.otf");
-}
-
 .inspector-section-header {
   background-color: #3e3e3e;
   border-left-width: 0px;
@@ -37,6 +31,12 @@ EnumField {
   flex-direction: row;
   flex-shrink: 0;
   flex-grow: 1;
+}
+
+.inspector-field-properties-button {
+  width: 20px;
+  height: 18px;
+  -unity-font: url("../Fonts/FA-5-Free-Solid.otf");
 }
 
 .inspector-entry-box {

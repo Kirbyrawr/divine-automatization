@@ -60,7 +60,9 @@ public class DABlackboard : Blackboard
 
     public void RemoveProperty(DABlackboardPropertyRow row)
     {
+        daGraphView.GraphObject.RegisterCompleteObjectUndo("Delete Property");
         PropertyRows.Remove(row.Field.Property.GetData().reference);
         PropertiesScrollView.Remove(row);
+        daGraphView.Serialize();
     }
 }

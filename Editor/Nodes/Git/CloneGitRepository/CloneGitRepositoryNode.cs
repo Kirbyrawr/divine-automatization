@@ -14,11 +14,22 @@ namespace Kirbyrawr.DivineAutomatization
         {
             VisualElement root = new VisualElement();
 
-            DAInspectorTextField sshURLField = new DAInspectorTextField("URL (SSH)", _task.sshURL);
-            root.Add(sshURLField);
+            var entrySection = new DAInspectorSection("Data");
+            root.Add(entrySection);
 
-            DAInspectorTextField destinationPath = new DAInspectorTextField("Destination Path", _task.destinationPath);
-            root.Add(destinationPath);
+            for (int i = 0; i < _task.data.Count; i++)
+            {
+                var entry = _task.data[i];
+                var element = new DAInspectorArrayElement<CloneGitRepositoryTask.CloneData>(i, _task.data);
+
+                DAInspectorTextField sshURLField = new DAInspectorTextField("SSH URL", entry.sshURL);
+                element.AddToElement(sshURLField);
+
+                DAInspectorTextField destinationPath = new DAInspectorTextField("Destination Path", entry.destinationPath);
+                element.AddToElement(destinationPath);
+
+                entrySection.AddToSection(element);
+            }
 
             return root;
         }

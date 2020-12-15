@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node>
     <name>Copy</name>
-    <help>Copy file or folder to destination</help>
+    <help>Copy file(s) or folder(s) to destination</help>
 </node>

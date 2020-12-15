@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <node>
     <name>Clone Git Repository</name>
-    <help>Clone Git repository using SSH url into destination</help>
+    <help>Clone Git repositories (SSH) into destination</help>
 </node>

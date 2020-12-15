@@ -12,13 +12,24 @@ namespace Kirbyrawr.DivineAutomatization
         {
             VisualElement root = new VisualElement();
 
-            //Target
-            var targetPathField = new DAInspectorTextField("Target Path", _task.targetPath);
-            root.Add(targetPathField);
+            var entrySection = new DAInspectorSection("Data");
+            root.Add(entrySection);
 
-            //Name
-            var destinationPathField = new DAInspectorTextField("Destination Path", _task.destinationPath);
-            root.Add(destinationPathField);
+            for (int i = 0; i < _task.data.Count; i++)
+            {
+                var entry = _task.data[i];
+                var element = new DAInspectorArrayElement<MoveTask.MoveData>(i, _task.data);
+
+                //Target
+                var targetPathField = new DAInspectorTextField("Target Path", entry.targetPath);
+                element.AddToElement(targetPathField);
+
+                //Name
+                var destinationPathField = new DAInspectorTextField("Destination Path", entry.destinationPath);
+                element.AddToElement(destinationPathField);
+
+                entrySection.AddToSection(element);
+            }
 
             return root;
         }

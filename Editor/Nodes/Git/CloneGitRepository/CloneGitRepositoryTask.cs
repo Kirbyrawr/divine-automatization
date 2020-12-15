@@ -9,8 +9,14 @@ namespace Kirbyrawr.DivineAutomatization
     [System.Serializable]
     public class CloneGitRepositoryTask : DATask
     {
-        public DAString sshURL = new DAString();
-        public DAString destinationPath = new DAString();
+        [System.Serializable]
+        public class CloneData
+        {
+            public DAString sshURL = new DAString();
+            public DAString destinationPath = new DAString();
+        }
+
+        public List<CloneData> data = new List<CloneData>() { new CloneData() };
 
         public override void Run(Dictionary<string, object> properties)
         {
@@ -19,11 +25,14 @@ namespace Kirbyrawr.DivineAutomatization
 
         private IEnumerator Clone(Dictionary<string, object> properties)
         {
-            var process = DATerminal.Run($"git clone {properties[sshURL.GetValue(properties)]}");
-
-            while (!process.HasExited)
+            foreach (var entry in data)
             {
-                yield return 0;
+                var process = DATerminal.Run($"git clone {entry.sshURL.GetValue(properties)} {entry.destinationPath.GetValue(properties)}");
+
+                while (!process.HasExited)
+                {
+                    yield return 0;
+                }
             }
 
             Finish(0);

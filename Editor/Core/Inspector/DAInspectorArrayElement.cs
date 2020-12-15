@@ -37,6 +37,8 @@ public class DAInspectorArrayElement<T> : VisualElement
 
         //Header - Buttons - Up
         var upButton = new Button();
+        upButton.clickable.clicked += () => MoveElementUp((int)upButton.userData);
+        upButton.userData = index;
         upButton.text = "";
         headerButtons.Add(upButton);
         if (index == 0)
@@ -46,6 +48,8 @@ public class DAInspectorArrayElement<T> : VisualElement
 
         //Header - Buttons - Down
         var downButton = new Button();
+        downButton.clickable.clicked += () => MoveElementDown((int)downButton.userData);
+        downButton.userData = index;
         downButton.text = "";
         headerButtons.Add(downButton);
         if (index == source.Count - 1)
@@ -82,6 +86,29 @@ public class DAInspectorArrayElement<T> : VisualElement
     public void AddToElement(VisualElement element)
     {
         content.Add(element);
+    }
+
+    //Buttons
+    private void MoveElementUp(int index)
+    {
+        _editor.graphView.GraphObject.RegisterCompleteObjectUndo("Remove element up");
+        var origin = _source[index];
+        var destination = _source[index - 1];
+        _source[index] = destination;
+        _source[index - 1] = origin;
+        _editor.inspector.Refresh();
+        _editor.graphView.Serialize();
+    }
+
+    private void MoveElementDown(int index)
+    {
+        _editor.graphView.GraphObject.RegisterCompleteObjectUndo("Move element down");
+        var origin = _source[index];
+        var destination = _source[index + 1];
+        _source[index] = destination;
+        _source[index + 1] = origin;
+        _editor.inspector.Refresh();
+        _editor.graphView.Serialize();
     }
 
     private void AddNewElement(int index)

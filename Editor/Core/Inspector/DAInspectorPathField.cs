@@ -18,12 +18,14 @@ public class DAInspectorPathField : DAInspectorField
 
         Add(PropertiesButton());
 
+        var pathField = new VisualElement();
+        pathField.AddToClassList("path-field");
+        Add(pathField);
+
         var titleLabel = new Label(title);
-        titleLabel.AddToClassList("inspector-field-path-title");
-        titleLabel.style.flexGrow = 1;
-        titleLabel.style.flexShrink = 0;
-        titleLabel.style.flexBasis = 0;
-        Add(titleLabel);
+        titleLabel.AddToClassList("unity-base-field__label");
+        titleLabel.AddToClassList("unity-label");
+        pathField.Add(titleLabel);
 
         var pathButton = new Button();
         pathButton.AddToClassList("inspector-field-path-main-button");
@@ -37,12 +39,12 @@ public class DAInspectorPathField : DAInspectorField
             pathButton.text = _variable.value;
         }
         pathButton.tooltip = DAPath.FormatPath(_variable.value);
-        Add(pathButton);
+        pathField.Add(pathButton);
 
         Button edit = new Button() { text = "" };
         edit.AddToClassList("inspector-field-path-edit");
         edit.clickable.clicked += () => OpenPathEditor(edit);
-        Add(edit);
+        pathField.Add(edit);
 
         RefreshField();
     }

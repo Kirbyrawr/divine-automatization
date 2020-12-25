@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using UnityEditor;
+using System.IO;
 
 namespace Kirbyrawr.DivineAutomatization
 {
@@ -19,7 +19,7 @@ namespace Kirbyrawr.DivineAutomatization
         {
             foreach (var entry in data)
             {
-                AssetDatabase.DeleteAsset(entry.targetPath.GetValue(properties));
+                File.Delete(DAPath.FormatPath(entry.targetPath.GetValue(properties)));
             }
 
             Finish(0);

@@ -39,6 +39,36 @@ EnumField {
   -unity-font: url("../Fonts/FA-5-Free-Solid.otf");
 }
 
+.inspector-field- {
+  flex-shrink: 1;
+  margin-right: 0px;
+}
+
+.inspector-field-path {
+  flex-shrink: 1;
+  flex-grow: 1;
+}
+
+.inspector-field-path-main-button {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-right-width: 0px;
+  margin-right: 0px;
+  flex-grow: 1;
+  flex-shrink: 1;
+  -unity-text-align: middle-left;
+}
+
+.inspector-field-path-edit {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-left-width: 0px;
+  margin-left: 0px;
+  width: 20px;
+  -unity-text-align: middle-center;
+  -unity-font: url("../Fonts/FA-5-Free-Regular.otf");
+}
+
 .inspector-entry-box {
   padding: 10px;
   margin-bottom: 5px;

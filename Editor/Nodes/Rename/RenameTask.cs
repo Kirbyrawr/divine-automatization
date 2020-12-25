@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using UnityEditor;
+using System.IO;
 
 namespace Kirbyrawr.DivineAutomatization
 {
@@ -22,7 +22,8 @@ namespace Kirbyrawr.DivineAutomatization
         {
             foreach (var entry in data)
             {
-                AssetDatabase.RenameAsset(entry.targetPath.GetValue(properties), entry.newName.GetValue(properties));
+                var newPath = Path.Combine(new FileInfo(DAPath.FormatPath(entry.targetPath.GetValue(properties))).FullName, entry.newName.GetValue(properties));
+                File.Move(DAPath.FormatPath(entry.targetPath.GetValue(properties)), newPath);
             }
 
             Finish(0);

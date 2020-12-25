@@ -1,0 +1,25 @@
+﻿.root {
+  padding: 10px;
+  border-width: 1px;
+  border-color: black;
+  flex-grow: 1;
+}
+
+.title {
+  margin-left: 1px;
+  margin-bottom: 2px;
+  font-size: 13px;
+  -unity-font-style: bold;
+}
+
+.special-folders {
+  flex-grow: 0;
+  align-self: flex-end;
+  margin-bottom: 5px;
+}
+
+.formatted-path-field TextInput {
+  color: #aaaaaa;
+  border-width: 0px;
+  background-color: transparent;
+}

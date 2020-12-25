@@ -21,7 +21,7 @@ namespace Kirbyrawr.DivineAutomatization
                 var element = new DAInspectorArrayElement<RenameTask.RenameData>(i, _task.data);
 
                 //Target
-                var targetPathField = new DAInspectorTextField("Target Path", entry.targetPath);
+                var targetPathField = new DAInspectorPathField("Target Path", entry.targetPath);
                 element.AddToElement(targetPathField);
 
                 //Name

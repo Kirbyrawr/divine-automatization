@@ -12,7 +12,7 @@ namespace Kirbyrawr.DivineAutomatization
         [System.Serializable]
         public class CloneData
         {
-            public DAString sshURL = new DAString();
+            public DAString url = new DAString();
             public DAString destinationPath = new DAString();
         }
 
@@ -27,7 +27,7 @@ namespace Kirbyrawr.DivineAutomatization
         {
             foreach (var entry in data)
             {
-                var process = DATerminal.Run($"git clone {entry.sshURL.GetValue(properties)} {entry.destinationPath.GetValue(properties)}");
+                var process = DATerminal.Run($"git clone {entry.url.GetValue(properties)} {entry.destinationPath.GetValue(properties)}");
 
                 while (!process.HasExited)
                 {

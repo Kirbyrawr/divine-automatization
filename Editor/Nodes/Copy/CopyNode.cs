@@ -21,11 +21,11 @@ namespace Kirbyrawr.DivineAutomatization
                 var element = new DAInspectorArrayElement<CopyTask.CopyData>(i, _task.data);
 
                 //Target
-                var targetPathField = new DAInspectorTextField("Target Path", entry.targetPath);
+                var targetPathField = new DAInspectorPathField("Target Path", entry.targetPath);
                 element.AddToElement(targetPathField);
 
                 //Name
-                var destinationPathField = new DAInspectorTextField("Destination Path", entry.destinationPath);
+                var destinationPathField = new DAInspectorPathField("Destination Path", entry.destinationPath);
                 element.AddToElement(destinationPathField);
 
                 entrySection.AddToSection(element);

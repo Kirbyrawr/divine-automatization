@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Kirbyrawr.DivineAutomatization;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -54,40 +56,9 @@ public static class DAUtils
         return id;
     }
 
-    /*
-    public static List<DAPropertyBase> GetAvailableProperties()
+    public static string GetPathOfScriptableObject(ScriptableObject scriptableObject)
     {
-        List<Type> types = new List<Type>();
-
-        foreach (var t in typeof(DANodeBase).Assembly.GetTypes())
-        {
-            if (t.IsClass && !t.IsAbstract)
-            {
-                Type baseType = t.BaseType;
-                while (baseType != null)
-                {
-                    if (baseType.UnderlyingSystemType == typeof(DANodeBase) && t.GetCustomAttributes(true)[0].GetType() != typeof(HideInInspector))
-                    {
-                        types.Add(t);
-                        baseType = null;
-                    }
-                    else
-                    {
-                        baseType = baseType.BaseType;
-                    }
-                }
-            }
-        }
-
-        return types;
-    }
-    */
-
-    public static void SetPadding(this IStyle style, float left, float right, float top, float bottom)
-    {
-        style.paddingLeft = left;
-        style.paddingRight = right;
-        style.paddingTop = top;
-        style.paddingBottom = bottom;
+        MonoScript ms = MonoScript.FromScriptableObject(scriptableObject);
+        return AssetDatabase.GetAssetPath(ms).Replace(scriptableObject.GetType().Name + ".cs", "");
     }
 }

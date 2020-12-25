@@ -22,8 +22,9 @@ namespace Kirbyrawr.DivineAutomatization
                 var entry = _task.data[i];
                 var element = new DAInspectorArrayElement<CloneGitRepositoryTask.CloneData>(i, _task.data);
 
-                DAInspectorTextField sshURLField = new DAInspectorTextField("SSH URL", entry.sshURL);
-                element.AddToElement(sshURLField);
+                DAInspectorTextField urlField = new DAInspectorTextField("URL", entry.url);
+                urlField.tooltip = "Only SSH URLS are valid.";
+                element.AddToElement(urlField);
 
                 DAInspectorTextField destinationPath = new DAInspectorTextField("Destination Path", entry.destinationPath);
                 element.AddToElement(destinationPath);

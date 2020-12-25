@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using UnityEditor;
+using System.IO;
 
 namespace Kirbyrawr.DivineAutomatization
 {
@@ -22,7 +22,7 @@ namespace Kirbyrawr.DivineAutomatization
         {
             foreach (var entry in data)
             {
-                AssetDatabase.CopyAsset(entry.targetPath.GetValue(properties), entry.destinationPath.GetValue(properties));
+                File.Copy(DAPath.FormatPath(entry.targetPath.GetValue(properties)), DAPath.FormatPath(entry.destinationPath.GetValue(properties)));
             }
             Finish(0);
         }

@@ -17,6 +17,7 @@ namespace Kirbyrawr.DivineAutomatization
         public DAGraphView graphView;
         public DABlackboard blackboard;
         public DAInspector inspector;
+        public DAPathEditor pathEditor;
         public DANodeSearchPopup searchNodePopup;
         public DAEnumSearchPopup searchEnumPopup;
         public DAPropertiesSearchPopup searchPropertiesPopup;
@@ -77,9 +78,7 @@ namespace Kirbyrawr.DivineAutomatization
 
         private void LoadStyles()
         {
-            MonoScript ms = MonoScript.FromScriptableObject(this);
-            string relativePath = AssetDatabase.GetAssetPath(ms).Replace(GetType().Name + ".cs", "");
-
+            string relativePath = DAUtils.GetPathOfScriptableObject(this);
             string stylesPath = $"{relativePath}EditorResources/Styles";
 
             Styles = new Dictionary<string, StyleSheet>();

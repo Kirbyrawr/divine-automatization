@@ -57,7 +57,30 @@ namespace Kirbyrawr.DivineAutomatization
             GraphObject.RegisterCompleteObjectUndo("Delete Selection");
             for (int i = selection.Count - 1; i >= 0; i--)
             {
-                RemoveElement((GraphElement)selection[i]);
+                GraphElement selectable = (GraphElement)selection[i];
+
+                //Node
+                switch (selectable)
+                {
+                    case DANode node:
+                        edges.ForEach((edge) =>
+                        {
+                            if (edge.input.node == node || edge.output.node == node)
+                            {
+                                edge.input.Disconnect(edge);
+                                edge.output.Disconnect(edge);
+                                RemoveElement(edge);
+                            }
+                        });
+                        break;
+
+                    case Edge edge:
+                        edge.input.Disconnect(edge);
+                        edge.output.Disconnect(edge);
+                        break;
+                }
+
+                RemoveElement(selectable);
             }
             Serialize();
         }

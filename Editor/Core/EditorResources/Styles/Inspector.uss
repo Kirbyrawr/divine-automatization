@@ -44,6 +44,10 @@ EnumField {
   margin-right: 0px;
 }
 
+.inspector-field TextField {
+  flex-shrink: 1;
+}
+
 .inspector-field-path {
   flex-shrink: 1;
   flex-grow: 1;

@@ -27,7 +27,7 @@ namespace Kirbyrawr.DivineAutomatization
         {
             foreach (var entry in data)
             {
-                var process = DATerminal.Run($"git clone {entry.url.GetValue(properties)} {entry.destinationPath.GetValue(properties)}");
+                var process = DATerminal.Run($"git clone {entry.url.GetValue(properties)} {DAPath.FormatPath(entry.destinationPath.GetValue(properties))}");
 
                 while (!process.HasExited)
                 {
